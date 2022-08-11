@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import styles from "./TaskCard.module.css";
 import { Checkbox } from "../Checkbox";
 import { Trash } from "phosphor-react";
@@ -15,18 +13,9 @@ interface TaskCardProps {
 }
 
 export function TaskCard(props: TaskCardProps) {
-  const [hover, setHover] = useState(false);
   const { id, isCompleted, title } = props.task;
 
   const { handleCompleteTask, handleDeleteTask } = props;
-
-  function handleMouseIn() {
-    setHover(true);
-  }
-
-  function handleMouseOut() {
-    setHover(false);
-  }
 
   return (
     <div className={styles.card}>
