@@ -59,5 +59,3 @@ function App() {
 }
 
 export default App;
-
-//https://github.com/enricomadeu/ignite-todo-reactjs-ts
