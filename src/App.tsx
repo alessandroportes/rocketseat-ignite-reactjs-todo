@@ -1,34 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { Header } from "./components/Header";
+import { Input } from "./components/Input";
+import { Tasks } from "./components/Tasks";
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+import "./styles/global.css";
+import styles from "./App.module.css";
+
+interface Tasks {
+  id: string;
+  title: string;
+  isCompleted: boolean;
 }
 
-export default App
+function App() {
+  const [tasks, setTasks] = useState<Tasks[]>([]);
+
+  function handleCreateTask(task: string) {
+    setTasks([
+      ...tasks,
+      {
+        id: uuidv4(),
+        isCompleted: false,
+        title: task,
+      },
+    ]);
+  }
+
+  function handleDeleteTask(id: string) {
+    setTasks((prevState) => prevState.filter((task) => task.id !== id));
+  }
+
+  function handleCompleteTask(id: string) {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          task.isCompleted = !task.isCompleted;
+        }
+        return task;
+      })
+    );
+  }
+
+  return (
+    <>
+      <Header />
+      <div className={styles.content}>
+        <Input handleCreateTask={handleCreateTask} />
+        <Tasks
+          task={tasks}
+          handleCompleteTask={handleCompleteTask}
+          handleDeleteTask={handleDeleteTask}
+        />
+      </div>
+    </>
+  );
+}
+
+export default App;
+
+//https://github.com/enricomadeu/ignite-todo-reactjs-ts

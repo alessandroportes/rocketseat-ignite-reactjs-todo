@@ -1,0 +1,15 @@
+.checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16rem;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--blue);
+  background-color: transparent;
+}
+
+.isCompleted {
+  background-color: var(--purple-dark);
+  border: none;
+}
